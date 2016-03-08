@@ -15,10 +15,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.ScrollPane;
-import javax.swing.JScrollBar;
 
 public class GBTextEditorFrame extends JPanel{
 	
@@ -38,6 +37,7 @@ public class GBTextEditorFrame extends JPanel{
 	private JMenuItem mntmSalva = new JMenuItem("Salva");
 	
 	public static JEditorPane editorPane = new JEditorPane();
+	private JScrollBar scrollBar = new JScrollBar();
 
 	/**
 	 * Launch the application.
@@ -81,7 +81,7 @@ public class GBTextEditorFrame extends JPanel{
 		this.frmGbtexteditor.setBounds(100, 100, 450, 300);
 		this.frmGbtexteditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JScrollBar scrollBar = new JScrollBar();
+		
 		
 		GroupLayout groupLayout = new GroupLayout(frmGbtexteditor.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -90,10 +90,10 @@ public class GBTextEditorFrame extends JPanel{
 					.addContainerGap()
 					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(editorPane, GroupLayout.PREFERRED_SIZE, 1165, GroupLayout.PREFERRED_SIZE)
+					.addComponent(editorPane, GroupLayout.DEFAULT_SIZE, 1168, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(9))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -130,6 +130,7 @@ public class GBTextEditorFrame extends JPanel{
 		});
 		*/
 		mntmSalva.addActionListener(new FileBrowserSalva(this,false));
+		//scrollBar.setDropTarget(dt);
 	}
 	
 	public JEditorPane getEditorPane(){

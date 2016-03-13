@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -18,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.MenuListener;
+import javax.swing.event.MenuEvent;
 
 public class GBTextEditorFrame extends JPanel{
 	
@@ -108,17 +111,34 @@ public class GBTextEditorFrame extends JPanel{
 		frmGbtexteditor.getContentPane().setLayout(groupLayout);
 		
 		frmGbtexteditor.setJMenuBar(menuBar);
+		mnFile.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-File-16x16.png")));
 		menuBar.add(mnFile);
+		mntmNuovo.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-New-16x16.png")));
 		mntmNuovo.addMouseListener(new MouseAdapter() {
-			@Override
+			//@Override
 			public void mousePressed(MouseEvent arg0) {
 				new AvvisoFileNonSalvato(frame,true);
 			}
 		});
 		mnFile.add(mntmNuovo);
+		mntmApri.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Apri-16x16.png")));
 		
 		mnFile.add(mntmApri);
+		mntmSalva.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Salva-1-16x16.png")));
 		mnFile.add(mntmSalva);
+		mnExit.addMenuListener(new MenuListener() {
+			public void menuCanceled(MenuEvent e) {
+			}
+			public void menuDeselected(MenuEvent e) {
+			}
+			public void menuSelected(MenuEvent e) {
+				new AvvisoFileNonSalvato(frame,true);
+				System.exit(0);
+			}
+		});
+		mnExit.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/exit-16x16.png")));
+		
+		menuBar.add(mnExit);
 		mntmApri.addActionListener(new FileBrowserApri(this));
 		/*
 		mntmApri.addMouseListener(new MouseAdapter() {
@@ -146,4 +166,5 @@ public class GBTextEditorFrame extends JPanel{
 	
 	public GBTextEditorFrame frame = this;
 	private final JTextArea textArea = new JTextArea();
+	private final JMenu mnExit = new JMenu("");
 }

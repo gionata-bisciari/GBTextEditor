@@ -41,7 +41,7 @@ public class AvvisoFileNonSalvato extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		JLabel lblVuoiSalvareIl = new JLabel("Vuoi salvare il file prima di crearne uno nuovo?");
+		JLabel lblVuoiSalvareIl = new JLabel("Vuoi salvare il file?");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -61,7 +61,7 @@ public class AvvisoFileNonSalvato extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Si");
 				okButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent e) {
@@ -70,13 +70,22 @@ public class AvvisoFileNonSalvato extends JDialog {
 					}
 				});
 				okButton.addActionListener(new FileBrowserSalva(this.frame,this.reset));
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand("Si");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
+				JButton cancelButton = new JButton("No");
+				cancelButton.addMouseListener(new MouseAdapter() {
+					//@Override
+					public void mousePressed(MouseEvent e) {
+						frame.getEditorPane().setText("");
+						setVisible(false);
+						dispose();
+					}
+				});
+				//cancelButton.addActionListener(new FileBrowserSalva(this.frame,this.reset));
+				cancelButton.setActionCommand("No");
 				buttonPane.add(cancelButton);
 			}
 		}

@@ -1,0 +1,1 @@
+Per avviare l'applicazione doppio click sul jar eseguibile

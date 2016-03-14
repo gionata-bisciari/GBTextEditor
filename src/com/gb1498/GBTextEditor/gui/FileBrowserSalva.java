@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URI;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -41,6 +42,7 @@ public class FileBrowserSalva extends JFileChooser implements ActionListener {
     		int n = this.showSaveDialog(frame);
     		if (n == JFileChooser.APPROVE_OPTION) {
     			File f = this.getSelectedFile();
+    			GBTextEditorFrame.uri = URI.create(this.getSelectedFile().getAbsolutePath());
     			BufferedWriter write = new BufferedWriter(new FileWriter(f));
     			String stringa = GBTextEditorFrame.editorPane.getText();
 				write.write(stringa);

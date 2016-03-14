@@ -14,7 +14,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -37,6 +39,8 @@ import java.awt.event.ActionEvent;
 public class GBTextEditorFrame extends JPanel{
 
 	private static final long serialVersionUID = 1018702002621459644L;
+	
+	public static URI uri;
 
 	public GBTextEditorFrame frame = this;
 	
@@ -63,6 +67,9 @@ public class GBTextEditorFrame extends JPanel{
 	private final JTextField textField = new JTextField();
 	private final JLabel lblGrandezzaCarattere = new JLabel("Grandezza carattere:");
 	private final JMenuItem mntmSitoCreatore = new JMenuItem("Sito creatore");
+	private final JMenu mnCompila = new JMenu("Programmazione");
+	private final JMenuItem mntmCompila = new JMenuItem("Compila");
+	private final JMenuItem mntmEsegui = new JMenuItem("Esegui");
 	
 	/**
 	 * Launch the application.
@@ -221,6 +228,67 @@ public class GBTextEditorFrame extends JPanel{
 		mnHelp.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO-16x16.png")));
 		mnHelp.setToolTipText("Informazioni sul programma");
 		mnHelp.setActionCommand("Info");
+		mnCompila.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Compila-1-16x16.png")));
+		
+		menuBar.add(mnCompila);
+		mntmCompila.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				try {
+					System.out.println(uri.getPath());
+					String path = "C:" + uri.getPath();
+					System.out.println(path);
+					String command = ("C:/Programmi/Java/jdk1.8.0_74/bin/javac.exe " + path + " -d " + (path.substring(0,path.lastIndexOf("/"))));
+					Process process = Runtime.getRuntime().exec(command);
+					//process.waitFor();
+					BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+					String linea = br.readLine();
+					while(linea!=null){
+						System.out.println(linea);
+						linea = br.readLine();
+					}
+					process.waitFor();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		mntmCompila.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Programming-16x16.png")));
+		
+		mnCompila.add(mntmCompila);
+		mntmEsegui.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Esegui-16x16.png")));
+		mntmEsegui.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				try {
+					System.out.println(uri.getPath());
+					String path = "C:" + uri.getPath();
+					System.out.println(path);
+					String command = ("C:/Programmi/Java/jdk1.8.0_74/bin/java.exe " + path);
+					Process process = Runtime.getRuntime().exec(command);
+					//process.waitFor();
+					BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+					String linea = br.readLine();
+					while(linea!=null){
+						System.out.println(linea);
+						linea = br.readLine();
+					}
+					//process.waitFor();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} /*catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
+			}
+		});
+		
+		mnCompila.add(mntmEsegui);
 	
 		mnImpostazioni.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnImpostazioni.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Opzioni-16x16.png")));

@@ -43,11 +43,9 @@ public class FileBrowserApri extends JFileChooser implements ActionListener {
     		if (n == JFileChooser.APPROVE_OPTION) {
     			
     			String uri = this.getSelectedFile().getAbsolutePath();
-    			System.out.println(uri);
     			uri = URLEncoder.encode(uri, "UTF-8");
     			uri = uri.replace("%5C", "/");
     			uri = uri.replace("%3A", ":");
-    			System.out.println(uri);
     			GBTextEditorFrame.uri = URI.create(uri);
     			File f = this.getSelectedFile();
     			BufferedReader read = new BufferedReader(new FileReader(f));

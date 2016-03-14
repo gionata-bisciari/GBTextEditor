@@ -235,12 +235,9 @@ public class GBTextEditorFrame extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				try {
-					System.out.println(uri.getPath());
 					String path = "C:" + uri.getPath();
-					System.out.println(path);
 					String command = ("C:/Programmi/Java/jdk1.8.0_74/bin/javac.exe " + path + " -d " + (path.substring(0,path.lastIndexOf("/"))));
 					Process process = Runtime.getRuntime().exec(command);
-					//process.waitFor();
 					BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 					String linea = br.readLine();
 					while(linea!=null){
@@ -248,6 +245,7 @@ public class GBTextEditorFrame extends JPanel{
 						linea = br.readLine();
 					}
 					process.waitFor();
+					process.destroy();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -261,13 +259,13 @@ public class GBTextEditorFrame extends JPanel{
 		
 		mnCompila.add(mntmCompila);
 		mntmEsegui.setIcon(new ImageIcon(GBTextEditorFrame.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Esegui-16x16.png")));
+		
+		/*
 		mntmEsegui.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				try {
-					System.out.println(uri.getPath());
 					String path = "C:" + uri.getPath();
-					System.out.println(path);
 					String command = ("C:/Programmi/Java/jdk1.8.0_74/bin/java.exe " + path);
 					Process process = Runtime.getRuntime().exec(command);
 					//process.waitFor();
@@ -277,16 +275,17 @@ public class GBTextEditorFrame extends JPanel{
 						System.out.println(linea);
 						linea = br.readLine();
 					}
-					//process.waitFor();
+					process.waitFor();
+					process.destroy();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} /*catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
 			}
-		});
+		});*/
 		
 		mnCompila.add(mntmEsegui);
 	

@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class Salva extends JPanel{
+public class GBTextEditorSalva extends JPanel{
 
 	private static final long serialVersionUID = 5098374780926515349L;
 	
 	private JFileChooser browser;
 	
-	public Salva(){
+	public GBTextEditorSalva(){
 		
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -32,7 +32,7 @@ public class Salva extends JPanel{
 		this.browser.setDialogTitle("Salva");
 		
 		if(GBTextEditor.getUri()==null){
-			switch(browser.showSaveDialog(Salva.this)){
+			switch(browser.showSaveDialog(GBTextEditorSalva.this)){
 				case JFileChooser.APPROVE_OPTION:
 					try {
 						File f = browser.getSelectedFile();
@@ -71,10 +71,10 @@ public class Salva extends JPanel{
 			}
 		}
 	}
-	public Salva(boolean b) {
+	public GBTextEditorSalva(boolean b) {
 		this();
 	}
 	public static void main(String[] args){
-		new Salva();
+		new GBTextEditorSalva();
 	}
 }

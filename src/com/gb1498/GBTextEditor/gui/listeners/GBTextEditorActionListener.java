@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
 import com.gb1498.GBTextEditor.gui.GBTextEditor;
-import com.gb1498.GBTextEditor.gui.Salva;
+import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
 import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
 
@@ -171,7 +171,7 @@ public class GBTextEditorActionListener implements ActionListener {
 			GBTextEditorAvvisoFileNonSalvato avv = new GBTextEditorAvvisoFileNonSalvato();
 			switch (avv.getScelta()){ 
 				case 1:
-					new Salva();
+					new GBTextEditorSalva();
 					continua = true;
 					break;
 				case 0:
@@ -188,7 +188,7 @@ public class GBTextEditorActionListener implements ActionListener {
 	}
 	
 	public void salvaFile(){
-		new Salva();
+		new GBTextEditorSalva();
 	}
 	
 	public void salvaFileConNome(){

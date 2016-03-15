@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
 import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
 import com.gb1498.GBTextEditor.gui.GBTextEditor;
-import com.gb1498.GBTextEditor.gui.Salva;
+import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
 
 public class GBTextEditorKeyAdapter extends KeyAdapter {
@@ -86,7 +86,7 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 			GBTextEditorAvvisoFileNonSalvato avv = new GBTextEditorAvvisoFileNonSalvato();
 			switch (avv.getScelta()){ 
 				case 1:
-					new Salva();
+					new GBTextEditorSalva();
 					continua = true;
 					break;
 				case 0:
@@ -103,7 +103,7 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 	}
 	
 	public void salvaFile(){
-		new Salva(false);
+		new GBTextEditorSalva(false);
 	}
 	
 	public void salvaFileConNome(){

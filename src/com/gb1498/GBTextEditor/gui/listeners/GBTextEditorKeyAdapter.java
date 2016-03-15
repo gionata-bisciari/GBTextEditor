@@ -107,7 +107,7 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 	}
 	
 	public void salvaFile(){
-		new GBTextEditorSalva(false);
+		new GBTextEditorSalva();
 	}
 	
 	public void salvaFileConNome(){

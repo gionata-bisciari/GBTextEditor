@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
 import com.gb1498.GBTextEditor.gui.GBTextEditor;
+import com.gb1498.GBTextEditor.gui.GBTextEditorAggiorna;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
 import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
@@ -147,6 +148,9 @@ public class GBTextEditorActionListener implements ActionListener {
 			}*/
 			JOptionPane.showMessageDialog(gui, "Questa funzione non è stata implementata interamente per cui non è ancora accessibile", "Errore", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
 		}
+		else if(e.getSource()==this.gui.getMntmAggiorna()){
+			this.aggiornaFile();
+		}
 	}
 	
 	public void resetEditorPane(){
@@ -202,5 +206,9 @@ public class GBTextEditorActionListener implements ActionListener {
 	public void nuovoFile(){
 		controllaSalva();
 		this.resetEditorPane();
+	}
+	
+	public void aggiornaFile(){
+		new GBTextEditorAggiorna();
 	}
 }

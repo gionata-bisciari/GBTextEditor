@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
 import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
 import com.gb1498.GBTextEditor.gui.GBTextEditor;
+import com.gb1498.GBTextEditor.gui.GBTextEditorAggiorna;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
 
@@ -48,6 +49,9 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 					this.nuovoFile();
 				}
 			}
+		}
+		else if(k.getKeyCode()==KeyEvent.VK_F5){
+			this.aggiornaFile();
 		}
 	}
 	
@@ -117,5 +121,8 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 	public void nuovoFile(){
 		controllaSalva();
 		this.resetEditorPane();
+	}
+	public void aggiornaFile(){
+		new GBTextEditorAggiorna();
 	}
 }

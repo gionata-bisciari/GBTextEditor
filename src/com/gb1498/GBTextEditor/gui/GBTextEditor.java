@@ -61,6 +61,7 @@ public class GBTextEditor extends JFrame{
 	private final JMenuItem mntmEsci = new JMenuItem("Esci");
 	private final JLabel lblGrandezzaCarattere = new JLabel("Grandezza carattere:");
 	private final JTextField txtGrandezzaFont = new JTextField();
+	private final JMenuItem mntmAggiorna = new JMenuItem("Aggiorna");
 	
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTextArea numeroRighe = new JTextArea();
@@ -72,6 +73,7 @@ public class GBTextEditor extends JFrame{
 	private final GBTextEditorMouseAdapter GBTE_MA = new GBTextEditorMouseAdapter(this);
 	private final GBTextEditorContentPaneMouseWheelListener GBTE_CPMWL = new GBTextEditorContentPaneMouseWheelListener(this);
 	private final GBTextEditorKeyAdapter GBTE_KA = new GBTextEditorKeyAdapter(this);
+	
 	
 	
 	/**
@@ -187,6 +189,12 @@ public class GBTextEditor extends JFrame{
 		mntmSalvaConNome.addActionListener(this.GBTE_AL);
 		mnSalva.add(mntmSalvaConNome);
 		
+		mntmAggiorna.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mntmAggiorna.setToolTipText("Ricarica il file");
+		mntmAggiorna.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Aggiorna-16x16.png")));
+		mntmAggiorna.addActionListener(this.GBTE_AL);
+		mnFile.add(mntmAggiorna);
+		
 		mnProgrammazione.setToolTipText("Opzioni per programmatori");
 		mnProgrammazione.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Compila-1-16x16.png")));
 		menuBar.add(mnProgrammazione);
@@ -254,6 +262,10 @@ public class GBTextEditor extends JFrame{
 		mntmEsci.setHorizontalAlignment(SwingConstants.LEFT);
 		menuBar.add(mntmEsci);
 		this.setVisible(true);
+	}
+
+	public JMenuItem getMntmAggiorna() {
+		return mntmAggiorna;
 	}
 
 	/**

@@ -140,7 +140,7 @@ public class GBTextEditor extends JFrame{
 		
 		getNumeroRighe().setToolTipText("Numero righe");
 		getScrollPane().setRowHeaderView(getNumeroRighe());
-		getContentPane().addMouseWheelListener(this.GBTE_CPMWL);
+		editorPane.addMouseWheelListener(this.GBTE_CPMWL);
 		/*editorPane.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent k) {

@@ -25,7 +25,7 @@ public class GBTextEditorContentPaneMouseWheelListener implements MouseWheelList
 			}
 		}
 		else{
-			gui.getScrollPane().getVerticalScrollBar().setValue(gui.getScrollPane().getVerticalScrollBar().getValue()+e.getWheelRotation()*10);
+			gui.getScrollPane().getVerticalScrollBar().setValue(gui.getScrollPane().getVerticalScrollBar().getValue()+e.getWheelRotation()*20);
 		}
 	}
 

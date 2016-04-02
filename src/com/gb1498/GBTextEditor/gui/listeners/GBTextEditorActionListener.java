@@ -1,7 +1,6 @@
 package com.gb1498.GBTextEditor.gui.listeners;
 
 import java.awt.Desktop;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -11,12 +10,12 @@ import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
 import com.gb1498.GBTextEditor.gui.GBTextEditor;
 import com.gb1498.GBTextEditor.gui.GBTextEditorAggiorna;
+import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
+import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
 import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
-import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
 
 public class GBTextEditorActionListener implements ActionListener {
 	
@@ -62,37 +61,41 @@ public class GBTextEditorActionListener implements ActionListener {
             	ex.printStackTrace();
             }
 		}
-		else if(e.getSource()==(this.gui.getTxtGrandezzaFont())){
-			int newSize = Integer.parseInt(gui.getTxtGrandezzaFont().getText());
-			if(newSize>=10&&newSize<=60){
-				Font modified = new Font("modified", Font.PLAIN, newSize);
-				GBTextEditor.getEditorpane().setFont(modified);
-				gui.getNumeroRighe().setFont(modified); 
-			}
-		}
 		else if(e.getSource()==(this.gui.getMntmCompila())){
-			/*TODO
-			if(uri!=null){
-				try {
-					String path = "C:" + uri.getPath();
-					String command = ("C:/Programmi/Java/jdk1.8.0_74/bin/javac.exe " + path + " -d " + (path.substring(0,path.lastIndexOf("/"))));
-					Process process = Runtime.getRuntime().exec(command);
-					BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-					String linea = br.readLine();
-					while(linea!=null){
-						System.out.println(linea);
-						linea = br.readLine();
+			/*
+			if(GBTextEditor.getUri()!=null){
+				ProcessBuilder builder = new ProcessBuilder("ping","localhost");
+				try{
+				Process process = builder.start();
+				Thread ioThread = new Thread(){
+					@Override
+					public void run(){
+						try{
+							BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+							String linea = null;
+							GBTextEditor.getOut().setVisible(true);
+							while((linea = br.readLine()) != null){
+								//System.out.println(linea);
+								GBTextEditor.getOut().getTextArea().append(linea + "\n");
+							}
+							br.close();
+						}
+						catch (Exception e){
+							e.printStackTrace();;
+						}
 					}
-					process.waitFor();
-					process.destroy();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				};
+				ioThread.start();
+				process.waitFor();
+				process.destroy();
+				GBTextEditor.getOut().getTextArea().append("fine processo");
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
 				}
 			}
 			else{
-				JOptionPane.showMessageDialog(frame, "Prima dicompilare un file devi salvarlo!", "Errore di compilazione", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+				JOptionPane.showMessageDialog(gui, "Prima di compilare un file devi salvarlo!", "Errore di compilazione", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
 			}*/
 			JOptionPane.showMessageDialog(gui, "Questa funzione non è stata implementata interamente per cui non è ancora accessibile", "Errore", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
 		}
@@ -151,10 +154,29 @@ public class GBTextEditorActionListener implements ActionListener {
 		else if(e.getSource()==this.gui.getMntmAggiorna()){
 			this.aggiornaFile();
 		}
+		else if(e.getSource()==(this.gui.getPopupMenuItemNuovo())){
+			if(controllaSalva()){
+				this.resetEditorPane();
+				this.resetURI();
+			}
+		}
+		else if(e.getSource()==(this.gui.getPopupMenuItemApri())){
+			this.controllaSalva();
+			this.apriFile();
+		}
+		else if(e.getSource()==(this.gui.getPopupMenuItemSalva())){
+			this.salvaFile();
+		}
+		else if(e.getSource()==(this.gui.getPopupMenuItemSalvaConNome())){
+			this.salvaFileConNome();
+		}
+		else if(e.getSource()==this.gui.getPopupMenuItemAggiorna()){
+			this.aggiornaFile();
+		}
 	}
 	
 	public void resetEditorPane(){
-		GBTextEditor.getEditorpane().setText("");
+		GBTextEditor.getEditorPane().setText("");
 	}
 	
 	public void resetURI(){
@@ -163,7 +185,7 @@ public class GBTextEditorActionListener implements ActionListener {
 	
 	public static boolean controllaEditorVuoto(){
 		boolean vuoto = false;
-		if(GBTextEditor.getEditorpane().getText().equals("")){
+		if(GBTextEditor.getEditorPane().getText().equals("")){
 			vuoto = true;
 		}
 		return vuoto;
@@ -206,6 +228,7 @@ public class GBTextEditorActionListener implements ActionListener {
 	public void nuovoFile(){
 		controllaSalva();
 		this.resetEditorPane();
+		GBTextEditor.resetBuffer();
 	}
 	
 	public void aggiornaFile(){

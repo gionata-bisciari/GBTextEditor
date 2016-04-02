@@ -15,6 +15,6 @@ public class GBTextEditorMouseAdapter extends MouseAdapter {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		gui.getTxtGrandezzaFont().setText(GBTextEditor.getEditorpane().getFont().getSize()+"");
+		gui.getGrandezzaFont().setValue(GBTextEditor.getEditorPane().getFont().getSize());
 	}
 }

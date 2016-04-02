@@ -1,5 +1,6 @@
 package com.gb1498.GBTextEditor.gui.listeners;
 
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -53,6 +54,14 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 		else if(k.getKeyCode()==KeyEvent.VK_F5){
 			this.aggiornaFile();
 		}
+		else if(k.getKeyCode()==KeyEvent.VK_ENTER){
+			int newSize = (int) gui.getGrandezzaFont().getValue();
+			if(newSize>=10&&newSize<=60){
+				Font modified = new Font("modified", Font.PLAIN, newSize);
+				GBTextEditor.getEditorPane().setFont(modified);
+				gui.getNumeroRighe().setFont(modified); 
+			}
+		}
 	}
 	
 	@Override
@@ -69,7 +78,7 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 	}
 	
 	public void resetEditorPane(){
-		GBTextEditor.getEditorpane().setText("");
+		GBTextEditor.getEditorPane().setText("");
 	}
 	
 	public void resetURI(){
@@ -78,7 +87,7 @@ public class GBTextEditorKeyAdapter extends KeyAdapter {
 	
 	public static boolean controllaEditorVuoto(){
 		boolean vuoto = false;
-		if(GBTextEditor.getEditorpane().getText().equals("")){
+		if(GBTextEditor.getEditorPane().getText().equals("")){
 			vuoto = true;
 		}
 		return vuoto;

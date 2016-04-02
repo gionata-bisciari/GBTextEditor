@@ -17,10 +17,12 @@ public class GBTextEditorAggiorna extends JPanel {
 	
 	public GBTextEditorAggiorna(){
 		if(GBTextEditor.getUri()!=null){
-			try {
-				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-				e.printStackTrace();
+			if(System.getProperty("os.name").contains("Windows")){
+				try {
+					UIManager.setLookAndFeel(GBTextEditor.TEMA);
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+					e.printStackTrace();
+				}
 			}
 			try {
 				File f = new File(GBTextEditor.getUri());
@@ -31,7 +33,7 @@ public class GBTextEditorAggiorna extends JPanel {
 					stringa = stringa + raw + "\n";
 					raw = read.readLine();	
 				}
-				GBTextEditor.getEditorpane().setText(stringa);
+				GBTextEditor.getEditorPane().setText(stringa);
 				read.close();
 				JOptionPane.showMessageDialog(this, "File aggiornato", "File aggiornato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
 			} catch (IOException e) {

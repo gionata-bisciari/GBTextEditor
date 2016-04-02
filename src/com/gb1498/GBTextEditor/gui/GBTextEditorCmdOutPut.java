@@ -9,6 +9,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class GBTextEditorCmdOutPut extends JFrame {
 	
@@ -17,6 +19,13 @@ public class GBTextEditorCmdOutPut extends JFrame {
 	private JTextArea textArea;
 	
 	public GBTextEditorCmdOutPut() {
+		if(System.getProperty("os.name").contains("Windows")){
+			try {
+				UIManager.setLookAndFeel(GBTextEditor.TEMA);
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
+		}
 		setMinimumSize(new Dimension(400, 300));
 		setTitle("CMD OutPut");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditorCmdOutPut.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-CMD.png")));

@@ -8,6 +8,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorAvvisoFileNonSalvatoActionListener;
@@ -32,6 +34,13 @@ public class GBTextEditorAvvisoFileNonSalvato extends JDialog {
 	public static final int ANNULLA = -1;
 	
 	public GBTextEditorAvvisoFileNonSalvato() {
+		if(System.getProperty("os.name").contains("Windows")){
+			try {
+				UIManager.setLookAndFeel(GBTextEditor.TEMA);
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
+		}
 		setMaximumSize(new Dimension(375, 105));
 		setMinimumSize(new Dimension(375, 105));
 		

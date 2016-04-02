@@ -20,10 +20,12 @@ public class GBTextEditorApri extends JPanel{
 	
 	public GBTextEditorApri(){
 		
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		if(System.getProperty("os.name").contains("Windows")){
+			try {
+				UIManager.setLookAndFeel(GBTextEditor.TEMA);
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		this.browser = new JFileChooser();
@@ -41,16 +43,14 @@ public class GBTextEditorApri extends JPanel{
 					while(raw!=null){
 						linea = linea + raw + "\n";
 						raw = read.readLine();
-						
 					}
 					GBTextEditor.setUri(f.toURI());
-					GBTextEditor.getEditorpane().setText(linea);
+					GBTextEditor.setBuffer(linea);
+					GBTextEditor.getEditorPane().setText(new String(linea));
 					read.close();
 					JOptionPane.showMessageDialog(this, "File aperto con successo", "File aperto", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
-					//GBTextEditor.getOut().getTextArea().setText(e.getMessage()+"\n"+e.getStackTrace());
-					//GBTextEditor.getOut().setVisible(true);
 					e.printStackTrace();
 				}
 				break;

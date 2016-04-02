@@ -20,10 +20,12 @@ public class GBTextEditorSalvaConNome extends JPanel{
 	
 	public GBTextEditorSalvaConNome(){
 		
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+		if(System.getProperty("os.name").contains("Windows")){
+			try {
+				UIManager.setLookAndFeel(GBTextEditor.TEMA);
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		this.browser = new JFileChooser();
@@ -38,7 +40,8 @@ public class GBTextEditorSalvaConNome extends JPanel{
 							case 1:
 								File f = browser.getSelectedFile();
 								BufferedWriter write = new BufferedWriter(new FileWriter(f));
-								String stringa = GBTextEditor.getEditorpane().getText().trim();
+								String stringa = GBTextEditor.getEditorPane().getText().trim();
+								GBTextEditor.setBuffer(new String(stringa));
 								write.write(stringa);
 								write.close();
 								GBTextEditor.setUri(f.toURI());
@@ -58,7 +61,8 @@ public class GBTextEditorSalvaConNome extends JPanel{
 					else{
 						File f = browser.getSelectedFile();
 						BufferedWriter write = new BufferedWriter(new FileWriter(f));
-						String stringa = GBTextEditor.getEditorpane().getText().trim();
+						String stringa = GBTextEditor.getEditorPane().getText().trim();
+						GBTextEditor.setBuffer(new String(stringa));
 						write.write(stringa);
 						write.close();
 						GBTextEditor.setUri(f.toURI());

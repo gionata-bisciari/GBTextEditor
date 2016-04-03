@@ -71,6 +71,10 @@ public class GBTextEditor extends JFrame{
 	private final JMenuItem mntmAggiorna = new JMenuItem("Aggiorna");
 	private final JSpinner grandezzaFont = new JSpinner();
 	
+	private final JMenu mnGeneraHelloworld = new JMenu("Genera \"HelloWorld\"");
+	private final JMenuItem mntmJava = new JMenuItem("Java");
+	private final JMenuItem mntmC = new JMenuItem("C");
+	
 	private final JMenu popupMenuSalva = new JMenu("Salva...");
 	private final JMenuItem popupMenuItemNuovo = new JMenuItem("Nuovo");
 	private final JMenuItem popupMenuItemApri = new JMenuItem("Apri");
@@ -92,10 +96,7 @@ public class GBTextEditor extends JFrame{
 	private final GBTextEditorChangeListener GBTE_CL = new GBTextEditorChangeListener(this);
 	private final JLabel label = new JLabel("           ");
 	private final JPopupMenu popupMenu = new JPopupMenu();
-	
-	
-	
-	
+		
 	/**
 	 * Launch the application.
 	 */
@@ -229,6 +230,22 @@ public class GBTextEditor extends JFrame{
 		mntmEsegui.addActionListener(this.GBTE_AL);
 		//mntmEsegui.setEnabled(false);
 		mnProgrammazione.add(mntmEsegui);
+		mnGeneraHelloworld.setToolTipText("Genera un file sorgente di test \"HelloWorld\"");
+		mnGeneraHelloworld.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		mnProgrammazione.add(mnGeneraHelloworld);
+		
+		mntmJava.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mntmJava.setToolTipText("Genera un \"HelloWorld\" in linguaggio di programmazione Java");
+		mntmJava.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Java-24x24.png")));
+		mntmJava.addActionListener(this.GBTE_AL);
+		mnGeneraHelloworld.add(mntmJava);
+		
+		mntmC.setToolTipText("Genera un \"HelloWorld\" in linguaggio di programmazione C");
+		mntmC.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mntmC.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-C-16x16.png")));
+		mntmC.addActionListener(this.GBTE_AL);
+		mnGeneraHelloworld.add(mntmC);
 		
 		mnImpostazioni.setToolTipText("Impostazioni dell'applicazione");
 		mnImpostazioni.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -653,5 +670,34 @@ public class GBTextEditor extends JFrame{
 	 */
 	public JMenu getPopupMenuSalva() {
 		return popupMenuSalva;
+	}
+
+	/**
+	 * @return the mnGeneraHelloworld
+	 */
+	public JMenu getMnGeneraHelloworld() {
+		return mnGeneraHelloworld;
+	}
+
+	/**
+	 * @return the mntmJava
+	 */
+	public JMenuItem getMntmJava() {
+		return mntmJava;
+	}
+
+	/**
+	 * @return the mntmC
+	 */
+	public JMenuItem getMntmC() {
+		return mntmC;
+	}
+	
+	public static void resetURI(){
+		setUri(null);
+	}
+	
+	public static void resetEditorPane(){
+		editorPane.setText("");
 	}
 }

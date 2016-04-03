@@ -34,8 +34,8 @@ public class GBTextEditorActionListener implements ActionListener {
 		}
 		else if(e.getSource()==(this.gui.getMntmNuovo())){
 			if(controllaSalva()){
-				this.resetEditorPane();
-				this.resetURI();
+				GBTextEditor.resetEditorPane();
+				GBTextEditor.resetURI();
 			}
 		}
 		else if(e.getSource()==(this.gui.getMntmApri())){
@@ -62,7 +62,7 @@ public class GBTextEditorActionListener implements ActionListener {
             }
 		}
 		else if(e.getSource()==(this.gui.getMntmCompila())){
-			/*
+			/*TODO
 			if(GBTextEditor.getUri()!=null){
 				ProcessBuilder builder = new ProcessBuilder("ping","localhost");
 				try{
@@ -156,8 +156,8 @@ public class GBTextEditorActionListener implements ActionListener {
 		}
 		else if(e.getSource()==(this.gui.getPopupMenuItemNuovo())){
 			if(controllaSalva()){
-				this.resetEditorPane();
-				this.resetURI();
+				GBTextEditor.resetEditorPane();
+				GBTextEditor.resetURI();
 			}
 		}
 		else if(e.getSource()==(this.gui.getPopupMenuItemApri())){
@@ -173,14 +173,12 @@ public class GBTextEditorActionListener implements ActionListener {
 		else if(e.getSource()==this.gui.getPopupMenuItemAggiorna()){
 			this.aggiornaFile();
 		}
-	}
-	
-	public void resetEditorPane(){
-		GBTextEditor.getEditorPane().setText("");
-	}
-	
-	public void resetURI(){
-		GBTextEditor.setUri(null);
+		else if(e.getSource()==this.gui.getMntmJava()){
+			this.generaHelloWorldJava();
+		}
+		else if(e.getSource()==this.gui.getMntmC()){
+			this.generaHelloWorldC();
+		}
 	}
 	
 	public static boolean controllaEditorVuoto(){
@@ -227,11 +225,31 @@ public class GBTextEditorActionListener implements ActionListener {
 	
 	public void nuovoFile(){
 		controllaSalva();
-		this.resetEditorPane();
+		GBTextEditor.resetEditorPane();
 		GBTextEditor.resetBuffer();
 	}
 	
 	public void aggiornaFile(){
 		new GBTextEditorAggiorna();
+	}
+	
+	public void generaHelloWorldJava(){
+		if(this.controllaSalva()){
+			GBTextEditor.resetURI();
+			String javaHL = ("public class HelloWorld {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Ciao mondo\");\n\t}\n}");
+			GBTextEditor.setBuffer(javaHL);
+			GBTextEditor.getEditorPane().setText(new String(javaHL));
+			JOptionPane.showMessageDialog(null, "HelloWorld in linguaggio Java generato con successo", "HelloWorld generato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+		}
+	}
+	
+	public void generaHelloWorldC(){
+		if(this.controllaSalva()){
+			GBTextEditor.resetURI();
+			String javaHL = ("#include <stdio.h>\n\nmain(){\n\tprintf(\"HelloWorld\");\n}");
+			GBTextEditor.setBuffer(javaHL);
+			GBTextEditor.getEditorPane().setText(new String(javaHL));
+			JOptionPane.showMessageDialog(null, "HelloWorld in linguaggio C generato con successo", "HelloWorld generato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+		}
 	}
 }

@@ -1,1 +1,4 @@
-Per avviare l'applicazione doppio click sul jar eseguibile
+INSTALLAZIONE:
+-Doppio click sul setup "setup.exe";
+-Seguire il processo di installazione.
+

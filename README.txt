@@ -1,4 +1,3 @@
 INSTALLAZIONE:
--Doppio click sul setup "setup.exe";
+-Doppio click sul setup "GBTextEditor-setup.exe";
 -Seguire il processo di installazione.
-

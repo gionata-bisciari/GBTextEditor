@@ -14,6 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorAvvisoFileNonSalvatoActionListener;
 import java.awt.Dimension;
+import java.awt.Point;
 
 public class GBTextEditorAvvisoFileNonSalvato extends JDialog {
 
@@ -34,6 +35,8 @@ public class GBTextEditorAvvisoFileNonSalvato extends JDialog {
 	public static final int ANNULLA = -1;
 	
 	public GBTextEditorAvvisoFileNonSalvato() {
+		setLocation(new Point(200, 200));
+		setAlwaysOnTop(true);
 		if(System.getProperty("os.name").contains("Windows")){
 			try {
 				UIManager.setLookAndFeel(GBTextEditor.TEMA);

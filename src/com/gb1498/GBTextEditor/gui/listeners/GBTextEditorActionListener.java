@@ -49,7 +49,7 @@ public class GBTextEditorActionListener implements ActionListener {
 			this.salvaFileConNome();
 		}
 		else if(e.getSource()==(this.gui.getMntmSitoCreatore())){
-			String url = "www.gb1498.com";
+			String url = "www.gionata-bisciari.it";
             Desktop desktop = Desktop.getDesktop();
             try{
             	if(desktop.isSupported(Desktop.Action.BROWSE)){

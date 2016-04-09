@@ -1,15 +1,15 @@
-package com.gb1498.GBTextEditor.gui.listeners;
+package it.gionata_bisciari.GBTextEditor.gui.listeners;
 
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
-import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
-import com.gb1498.GBTextEditor.gui.GBTextEditor;
-import com.gb1498.GBTextEditor.gui.GBTextEditorAggiorna;
-import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
-import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditor;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorAggiorna;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorApri;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorSalva;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorSalvaConNome;
 
 public class GBTextEditorKeyAdapter extends KeyAdapter {
 	

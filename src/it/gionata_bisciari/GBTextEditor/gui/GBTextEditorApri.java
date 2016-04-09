@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui;
+package it.gionata_bisciari.GBTextEditor.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,17 +48,17 @@ public class GBTextEditorApri extends JPanel{
 					GBTextEditor.setBuffer(linea);
 					GBTextEditor.getEditorPane().setText(new String(linea));
 					read.close();
-					JOptionPane.showMessageDialog(this, "File aperto con successo", "File aperto", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+					JOptionPane.showMessageDialog(this, "File aperto con successo", "File aperto", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+					JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
 					e.printStackTrace();
 				}
 				break;
 			case JFileChooser.CANCEL_OPTION:
-				JOptionPane.showMessageDialog(this, "File non aperto", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+				JOptionPane.showMessageDialog(this, "File non aperto", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 				break;
 			case JFileChooser.ERROR_OPTION:
-				JOptionPane.showMessageDialog(this, "Si è presentato un errore indefinito, riprova", "Errore", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+				JOptionPane.showMessageDialog(this, "Si è presentato un errore indefinito, riprova", "Errore", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("	icons/GBTextEditor-Errore.png")));
 				break;
 			default:
 				break;

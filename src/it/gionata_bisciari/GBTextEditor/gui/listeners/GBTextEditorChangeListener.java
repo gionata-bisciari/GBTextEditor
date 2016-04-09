@@ -1,11 +1,11 @@
-package com.gb1498.GBTextEditor.gui.listeners;
+package it.gionata_bisciari.GBTextEditor.gui.listeners;
 
 import java.awt.Font;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditor;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditor;
 
 public class GBTextEditorChangeListener implements ChangeListener {
 	

@@ -1,9 +1,9 @@
-package com.gb1498.GBTextEditor.gui.listeners;
+package it.gionata_bisciari.GBTextEditor.gui.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
 
 public class GBTextEditorAvvisoFileNonSalvatoActionListener implements ActionListener{
 	

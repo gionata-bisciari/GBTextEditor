@@ -1,9 +1,9 @@
-package com.gb1498.GBTextEditor.gui.listeners;
+package it.gionata_bisciari.GBTextEditor.gui.listeners;
 
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditor;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditor;
 
 public class GBTextEditorMenuListener implements MenuListener {
 	

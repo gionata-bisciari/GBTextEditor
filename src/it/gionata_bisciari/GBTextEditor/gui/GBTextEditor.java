@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui;
+package it.gionata_bisciari.GBTextEditor.gui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -8,10 +8,23 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorActionListener;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorChangeListener;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorKeyAdapter;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorMenuListener;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorMouseAdapter;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorMouseWheelListener;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorWindowListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -19,6 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -27,13 +41,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorActionListener;
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorChangeListener;
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorKeyAdapter;
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorMenuListener;
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorMouseAdapter;
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorMouseWheelListener;
 
 public class GBTextEditor extends JFrame{
 	
@@ -94,6 +101,8 @@ public class GBTextEditor extends JFrame{
 	private final GBTextEditorKeyAdapter GBTE_KA = new GBTextEditorKeyAdapter(this);
 	private final GBTextEditorMenuListener GBTE_ML = new GBTextEditorMenuListener(this);
 	private final GBTextEditorChangeListener GBTE_CL = new GBTextEditorChangeListener(this);
+	private final GBTextEditorWindowListener GBTE_WL = new GBTextEditorWindowListener(this);
+	
 	private final JLabel label = new JLabel("           ");
 	private final JPopupMenu popupMenu = new JPopupMenu();
 		
@@ -104,10 +113,17 @@ public class GBTextEditor extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					@SuppressWarnings("unused")
-					GBTextEditor window = new GBTextEditor();
-					//window.frmGBTextEditor.setVisible(true);
-				} catch (Exception e) {
+					try{
+						@SuppressWarnings("unused")
+						GBTextEditor window = new GBTextEditor(args[0]);
+					}
+					catch (ArrayIndexOutOfBoundsException e){
+						//e.printStackTrace();
+						@SuppressWarnings("unused")
+						GBTextEditor window = new GBTextEditor();
+					}
+				} 
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -118,6 +134,21 @@ public class GBTextEditor extends JFrame{
 	 * Create the application.
 	 */
 	public GBTextEditor() {
+		this.initialize();
+	}
+	
+	/**
+	 * Create the application.
+	 */
+	public GBTextEditor(String path) {
+		this.initialize();
+		this.initFile(path);
+	}
+
+	/**
+	 * Inizializza gli elementi della finestra.
+	 */
+	private void initialize() {
 		if(System.getProperty("os.name").contains("Windows")){
 			try {
 				UIManager.setLookAndFeel(GBTextEditor.TEMA);
@@ -125,14 +156,10 @@ public class GBTextEditor extends JFrame{
 				e.printStackTrace();
 			}
 		}
+		
+		this.addWindowListener(GBTE_WL);
+		
 		GBTextEditor.out.setVisible(false);
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
 		
 		String righe = "";
 		for(int i=1;i<=10000;i++){
@@ -145,11 +172,11 @@ public class GBTextEditor extends JFrame{
 		getNumeroRighe().setEditable(false);
 		getNumeroRighe().setText(righe);
 		
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditorIcon.png")));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditorIcon.png")));
 		this.setMinimumSize(new Dimension(854, 480));
 		this.setTitle("GBTextEditor");
 		this.setBounds(100, 100, 854, 480);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -174,19 +201,19 @@ public class GBTextEditor extends JFrame{
 		
 		mnFile.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		mnFile.setToolTipText("Operazioni inerenti a file");
-		mnFile.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-File-16x16.png")));
+		mnFile.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-File-16x16.png")));
 		menuBar.add(mnFile);
 		
 		mntmNuovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mntmNuovo.setToolTipText("Crea un nuovo file (sar\u00E0 chiesto se si desidera salvare o meno il file corrente)");
-		mntmNuovo.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-New-16x16.png")));
+		mntmNuovo.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-New-16x16.png")));
 		mntmNuovo.addActionListener(GBTE_AL);
 		mnFile.add(mntmNuovo);
 		
 		mntmApri.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mntmApri.setToolTipText("Apri file (sar\u00E0 chiesto se si desidera salvare o meno il file corrente)");
 		mntmApri.addActionListener(GBTE_AL);
-		mntmApri.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Apri-16x16.png")));
+		mntmApri.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Apri-16x16.png")));
 		mnFile.add(mntmApri);
 		
 		mnSalva.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -196,29 +223,29 @@ public class GBTextEditor extends JFrame{
 		
 		mntmSalva.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mntmSalva.setToolTipText("Salva il file corrente ");
-		mntmSalva.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Salva-1-16x16.png")));
+		mntmSalva.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Salva-1-16x16.png")));
 		mntmSalva.addActionListener(this.GBTE_AL);
 		mnSalva.add(mntmSalva);
 		
 		mntmSalvaConNome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mntmSalvaConNome.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Salva-2-16x16.png")));
+		mntmSalvaConNome.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Salva-2-16x16.png")));
 		mntmSalvaConNome.setToolTipText("Salva il file corrente con nome");
 		mntmSalvaConNome.addActionListener(this.GBTE_AL);
 		mnSalva.add(mntmSalvaConNome);
 		
 		mntmAggiorna.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mntmAggiorna.setToolTipText("Ricarica il file");
-		mntmAggiorna.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Aggiorna-16x16.png")));
+		mntmAggiorna.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Aggiorna-16x16.png")));
 		mntmAggiorna.addActionListener(this.GBTE_AL);
 		mnFile.add(mntmAggiorna);
 		
 		mnProgrammazione.setToolTipText("Opzioni per programmatori");
-		mnProgrammazione.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Compila-1-16x16.png")));
+		mnProgrammazione.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Compila-1-16x16.png")));
 		menuBar.add(mnProgrammazione);
 		
 		mntmCompila.setToolTipText("Compila il file");
 		mntmCompila.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mntmCompila.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Programming-16x16.png")));
+		mntmCompila.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Programming-16x16.png")));
 		mntmCompila.addActionListener(this.GBTE_AL);
 		//mntmCompila.setEnabled(false);
 		mnProgrammazione.add(mntmCompila);
@@ -226,7 +253,7 @@ public class GBTextEditor extends JFrame{
 		
 		mntmEsegui.setToolTipText("Esegui il file compilato");
 		mntmEsegui.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mntmEsegui.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Esegui-16x16.png")));
+		mntmEsegui.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Esegui-16x16.png")));
 		mntmEsegui.addActionListener(this.GBTE_AL);
 		//mntmEsegui.setEnabled(false);
 		mnProgrammazione.add(mntmEsegui);
@@ -237,36 +264,36 @@ public class GBTextEditor extends JFrame{
 		
 		mntmJava.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mntmJava.setToolTipText("Genera un \"HelloWorld\" in linguaggio di programmazione Java");
-		mntmJava.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Java-24x24.png")));
+		mntmJava.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Java-24x24.png")));
 		mntmJava.addActionListener(this.GBTE_AL);
 		mnGeneraHelloworld.add(mntmJava);
 		
 		mntmC.setToolTipText("Genera un \"HelloWorld\" in linguaggio di programmazione C");
 		mntmC.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mntmC.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-C-16x16.png")));
+		mntmC.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-C-16x16.png")));
 		mntmC.addActionListener(this.GBTE_AL);
 		mnGeneraHelloworld.add(mntmC);
 		
 		mnImpostazioni.setToolTipText("Impostazioni dell'applicazione");
 		mnImpostazioni.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		mnImpostazioni.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Opzioni-16x16.png")));
+		mnImpostazioni.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Opzioni-16x16.png")));
 		menuBar.add(mnImpostazioni);
 		
 		mnFont.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mnFont.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Font-16x16.png")));
+		mnFont.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Font-16x16.png")));
 		mnFont.setToolTipText("Opzioni font");
 		mnImpostazioni.add(mnFont);
 		
 		mntmCambia.setEnabled(false);
 		mntmCambia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mntmCambia.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Font-1-16x16.png")));
+		mntmCambia.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Font-1-16x16.png")));
 		mntmCambia.setToolTipText("Cambia font dell'editor");
 		mnFont.add(mntmCambia);
 		
 		
 		mnModificaGrandezzaCarattere.setToolTipText("Modifica la grandezza del font");
 		mnModificaGrandezzaCarattere.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		mnModificaGrandezzaCarattere.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Font-2-16x16.png")));
+		mnModificaGrandezzaCarattere.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Font-2-16x16.png")));
 		mnModificaGrandezzaCarattere.addMouseListener(this.GBTE_MA);
 		mnFont.add(mnModificaGrandezzaCarattere);
 		
@@ -279,14 +306,14 @@ public class GBTextEditor extends JFrame{
 		mnModificaGrandezzaCarattere.add(label);
 		
 		mnInfo.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		mnInfo.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO-16x16.png")));
+		mnInfo.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO-16x16.png")));
 		mnInfo.setToolTipText("Informazioni sul programma");
 		mnInfo.setActionCommand("Info");
 		menuBar.add(mnInfo);
 		
 		mntmSitoCreatore.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mntmSitoCreatore.setToolTipText("Sar\u00E0 aperta una finestra nel browser con il sito del creatore");
-		mntmSitoCreatore.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-LINK-16x16.png")));
+		mntmSitoCreatore.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-LINK-16x16.png")));
 		mntmSitoCreatore.addActionListener(this.GBTE_AL);
 		mnInfo.add(mntmSitoCreatore);
 		
@@ -295,30 +322,30 @@ public class GBTextEditor extends JFrame{
 		mntmEsci.setToolTipText("Chiudi il programma (sarà chiesto se si desidera salvare il file)");
 		mntmEsci.setPreferredSize(new Dimension(70, 25));
 		mntmEsci.setMaximumSize(new Dimension(70, 25));
-		mntmEsci.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-EXIT-16x16.png")));
+		mntmEsci.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-EXIT-16x16.png")));
 		mntmEsci.setHorizontalAlignment(SwingConstants.LEFT);
 		menuBar.add(mntmEsci);
 		
 		popupMenuItemNuovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		popupMenuItemNuovo.setToolTipText("Crea un nuovo file (sar\u00E0 chiesto se si desidera salvare o meno il file corrente)");
-		popupMenuItemNuovo.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-New-16x16.png")));
+		popupMenuItemNuovo.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-New-16x16.png")));
 		popupMenuItemNuovo.addActionListener(GBTE_AL);
 		popupMenu.add(this.popupMenuItemNuovo);
 		
 		popupMenuItemApri.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		popupMenuItemApri.setToolTipText("Apri file (sar\u00E0 chiesto se si desidera salvare o meno il file corrente)");
 		popupMenuItemApri.addActionListener(GBTE_AL);
-		popupMenuItemApri.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Apri-16x16.png")));
+		popupMenuItemApri.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Apri-16x16.png")));
 		popupMenu.add(this.popupMenuItemApri);
 		
 		popupMenuItemSalva.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		popupMenuItemSalva.setToolTipText("Salva il file corrente ");
-		popupMenuItemSalva.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Salva-1-16x16.png")));
+		popupMenuItemSalva.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Salva-1-16x16.png")));
 		popupMenuItemSalva.addActionListener(this.GBTE_AL);
 		popupMenuSalva.add(this.popupMenuItemSalva);
 		
 		popupMenuItemSalvaConNome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		popupMenuItemSalvaConNome.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Salva-2-16x16.png")));
+		popupMenuItemSalvaConNome.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Salva-2-16x16.png")));
 		popupMenuItemSalvaConNome.setToolTipText("Salva il file corrente con nome");
 		popupMenuItemSalvaConNome.addActionListener(this.GBTE_AL);
 		popupMenuSalva.add(this.popupMenuItemSalvaConNome);
@@ -330,7 +357,7 @@ public class GBTextEditor extends JFrame{
 		
 		popupMenuItemAggiorna.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		popupMenuItemAggiorna.setToolTipText("Ricarica il file");
-		popupMenuItemAggiorna.setIcon(new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Aggiorna-16x16.png")));
+		popupMenuItemAggiorna.setIcon(new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Aggiorna-16x16.png")));
 		popupMenuItemAggiorna.addActionListener(this.GBTE_AL);
 		popupMenu.add(this.popupMenuItemAggiorna);
 		
@@ -699,5 +726,26 @@ public class GBTextEditor extends JFrame{
 	
 	public static void resetEditorPane(){
 		editorPane.setText("");
+	}
+	
+	private void initFile(String path){
+		try {
+			File f = new File(path);
+			BufferedReader read = new BufferedReader(new FileReader(f));
+			String raw = read.readLine();
+			String stringFile = "";
+			while(raw!=null){
+				stringFile = stringFile + raw + "\n";
+				raw = read.readLine();
+			}
+			GBTextEditor.setUri(f.toURI());
+			GBTextEditor.setBuffer(stringFile);
+			GBTextEditor.getEditorPane().setText(new String(stringFile));
+			read.close();
+			JOptionPane.showMessageDialog(null, "File aperto con successo", "File aperto", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
+			e.printStackTrace();
+		}
 	}
 }

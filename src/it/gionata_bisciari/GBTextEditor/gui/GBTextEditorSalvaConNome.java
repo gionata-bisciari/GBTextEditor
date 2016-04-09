@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui;
+package it.gionata_bisciari.GBTextEditor.gui;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -45,16 +45,16 @@ public class GBTextEditorSalvaConNome extends JPanel{
 								write.write(stringa);
 								write.close();
 								GBTextEditor.setUri(f.toURI());
-								JOptionPane.showMessageDialog(this, "File salvato con successo", "File salvato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+								JOptionPane.showMessageDialog(this, "File salvato con successo", "File salvato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 								break;
 							case 0:
-								JOptionPane.showMessageDialog(this, "Operazione annullata", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+								JOptionPane.showMessageDialog(this, "Operazione annullata", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 								break;
 							case -1:
-								JOptionPane.showMessageDialog(this, "Operazione annullata", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+								JOptionPane.showMessageDialog(this, "Operazione annullata", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 								break;
 							default:
-								JOptionPane.showMessageDialog(this, "Errore indefinito, riprova", "ERRORE", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+								JOptionPane.showMessageDialog(this, "Errore indefinito, riprova", "ERRORE", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
 								break;
 						}
 					}
@@ -66,18 +66,18 @@ public class GBTextEditorSalvaConNome extends JPanel{
 						write.write(stringa);
 						write.close();
 						GBTextEditor.setUri(f.toURI());
-						JOptionPane.showMessageDialog(this, "File salvato con successo", "File salvato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+						JOptionPane.showMessageDialog(this, "File salvato con successo", "File salvato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 					}
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+					JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
 					e.printStackTrace();
 				}
 				break;
 			case JFileChooser.CANCEL_OPTION:
-				JOptionPane.showMessageDialog(this, "File non salvato", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+				JOptionPane.showMessageDialog(this, "File non salvato", "Operazione annullata", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 				break;
 			case JFileChooser.ERROR_OPTION:
-				JOptionPane.showMessageDialog(this, "Si è presentato un errore indefinito, riprova", "Errore", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+				JOptionPane.showMessageDialog(this, "Si è presentato un errore indefinito, riprova", "Errore", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
 				break;
 			default:
 				break;
@@ -86,7 +86,7 @@ public class GBTextEditorSalvaConNome extends JPanel{
 	
 	public int avvisoSovrascrizione(){
 		int valore;
-		switch (JOptionPane.showConfirmDialog(this, "Il file specificato esiste già, devo sovrascriverlo?", "File esistente", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")))) {
+		switch (JOptionPane.showConfirmDialog(this, "Il file specificato esiste già, devo sovrascriverlo?", "File esistente", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")))) {
 			case JOptionPane.YES_OPTION:
 				valore = 1;
 				break;

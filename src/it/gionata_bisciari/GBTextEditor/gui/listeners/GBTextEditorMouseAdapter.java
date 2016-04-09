@@ -1,9 +1,9 @@
-package com.gb1498.GBTextEditor.gui.listeners;
+package it.gionata_bisciari.GBTextEditor.gui.listeners;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditor;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditor;
 
 public class GBTextEditorMouseAdapter extends MouseAdapter {
 	

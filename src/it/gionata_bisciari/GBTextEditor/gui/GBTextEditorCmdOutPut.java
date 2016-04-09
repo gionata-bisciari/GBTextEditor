@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui;
+package it.gionata_bisciari.GBTextEditor.gui;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -28,7 +28,7 @@ public class GBTextEditorCmdOutPut extends JFrame {
 		}
 		setMinimumSize(new Dimension(400, 300));
 		setTitle("CMD OutPut");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditorCmdOutPut.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-CMD.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditorCmdOutPut.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-CMD.png")));
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(

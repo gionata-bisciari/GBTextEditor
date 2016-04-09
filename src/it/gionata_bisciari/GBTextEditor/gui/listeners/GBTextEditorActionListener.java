@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui.listeners;
+package it.gionata_bisciari.GBTextEditor.gui.listeners;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -10,12 +10,12 @@ import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.gb1498.GBTextEditor.gui.GBTextEditor;
-import com.gb1498.GBTextEditor.gui.GBTextEditorAggiorna;
-import com.gb1498.GBTextEditor.gui.GBTextEditorApri;
-import com.gb1498.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
-import com.gb1498.GBTextEditor.gui.GBTextEditorSalva;
-import com.gb1498.GBTextEditor.gui.GBTextEditorSalvaConNome;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditor;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorAggiorna;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorApri;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorAvvisoFileNonSalvato;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorSalva;
+import it.gionata_bisciari.GBTextEditor.gui.GBTextEditorSalvaConNome;
 
 public class GBTextEditorActionListener implements ActionListener {
 	
@@ -246,9 +246,9 @@ public class GBTextEditorActionListener implements ActionListener {
 	public void generaHelloWorldC(){
 		if(this.controllaSalva()){
 			GBTextEditor.resetURI();
-			String javaHL = ("#include <stdio.h>\n\nmain(){\n\tprintf(\"HelloWorld\");\n}");
-			GBTextEditor.setBuffer(javaHL);
-			GBTextEditor.getEditorPane().setText(new String(javaHL));
+			String cHL = ("#include <stdio.h>\n\nmain(){\n\tprintf(\"HelloWorld\");\n}");
+			GBTextEditor.setBuffer(cHL);
+			GBTextEditor.getEditorPane().setText(new String(cHL));
 			JOptionPane.showMessageDialog(null, "HelloWorld in linguaggio C generato con successo", "HelloWorld generato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
 		}
 	}

@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui;
+package it.gionata_bisciari.GBTextEditor.gui;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -12,7 +12,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import com.gb1498.GBTextEditor.gui.listeners.GBTextEditorAvvisoFileNonSalvatoActionListener;
+import it.gionata_bisciari.GBTextEditor.gui.listeners.GBTextEditorAvvisoFileNonSalvatoActionListener;
+
 import java.awt.Dimension;
 import java.awt.Point;
 
@@ -80,7 +81,7 @@ public class GBTextEditorAvvisoFileNonSalvato extends JDialog {
 		setModal(true);
 		setType(Type.POPUP);
 		setTitle("ATTENZIONE!!!");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditorAvvisoFileNonSalvato.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Attenzione.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GBTextEditorAvvisoFileNonSalvato.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Attenzione.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(groupLayout);

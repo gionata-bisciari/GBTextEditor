@@ -1,4 +1,4 @@
-package com.gb1498.GBTextEditor.gui;
+package it.gionata_bisciari.GBTextEditor.gui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,14 +35,14 @@ public class GBTextEditorAggiorna extends JPanel {
 				}
 				GBTextEditor.getEditorPane().setText(stringa);
 				read.close();
-				JOptionPane.showMessageDialog(this, "File aggiornato", "File aggiornato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-INFO.png")));
+				JOptionPane.showMessageDialog(this, "File aggiornato", "File aggiornato", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-INFO.png")));
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+				JOptionPane.showMessageDialog(this, "File inesistente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
 				e.printStackTrace();
 			}
 		}
 		else{
-			JOptionPane.showMessageDialog(this, "Impossibile aggiornare, non hai aperto alcun file o non hai salvato il file corrente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/com/gb1498/GBTextEditor/icons/GBTextEditor-Errore.png")));
+			JOptionPane.showMessageDialog(this, "Impossibile aggiornare, non hai aperto alcun file o non hai salvato il file corrente", "File inesistente", JOptionPane.ERROR_MESSAGE, new ImageIcon(GBTextEditor.class.getResource("/it/gionata_bisciari/GBTextEditor/gui/icons/GBTextEditor-Errore.png")));
 		}
 	}
 	
